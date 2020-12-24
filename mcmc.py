@@ -2,7 +2,7 @@
 import numpy as np
 
 
-def mcmc(logprior, loglikelyhood, generate, logproposal, m0, niter, step):
+def mcmc(logprior, loglikelyhood, generate, logproposal, m0, niter, step, ind):
     '''
     The Four first arguments are functions that return a probability
     
@@ -52,14 +52,14 @@ def mcmc(logprior, loglikelyhood, generate, logproposal, m0, niter, step):
         # loglikelihood: log of density for the direct model f(d-g(m)): sigma(d,y)
         # logproposal: r(x,y)
         lpcandidate = logprior(candidate)
-        llcandidate = loglikelyhood(candidate)
+        llcandidate = loglikelyhood(candidate, ind)
 
         # when r() is symetric, this step is useless since r(x,y)=r(y,x)
         lr2 = logproposal(current, candidate, step)
         lr1 = logproposal(candidate, current, step)
 
         lpcurrent = logprior(current)
-        llcurrent = loglikelyhood(current)
+        llcurrent = loglikelyhood(current, ind)
 
         # A(x',x) = alpha = (p(y) * f(d, y) * r(y, x)) / (p(x) * f(d, x) * r(x, y))
         logalpha = lpcandidate + llcandidate + lr1 - lpcurrent - llcurrent - lr2
