@@ -23,7 +23,7 @@ def logprior(m):
     return lp
 
 
-def loglikelyhood(m):
+def loglikelyhood(m, ind):
     '''
     given a set of parameter m, compute the probalility that
     it explains the data
@@ -51,7 +51,9 @@ def loglikelyhood(m):
     # log (gaussian or exponential or whatever)
     #l = ??
     # log (normal density for the residue)
-    l = - 0.5 * np.sum(residuals ** 2) #GAUSSIAN
-    l = -1*np.sum(np.abs(residuals)) #EXP
+    if ind == 'Gaus':
+        l = - 0.5 * np.sum(residuals ** 2) #GAUSSIAN
+    else:
+        l = -1*np.sum(np.abs(residuals)) #EXP
 
     return l
