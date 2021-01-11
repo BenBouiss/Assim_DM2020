@@ -10,15 +10,9 @@ def logprior(m):
     :param m:
     :return: log(prior)
     '''
-
-    #lp =  ??
-    x = m[0]
-    y = m[1]
-
-    if y > 0 and y < 4:
-        lp = 1
-    else:
-        lp = 1
+    
+    # no prior knowledge about the intercept or the slope, it can be any value!
+    lp = 0
 
     return lp
 
@@ -53,7 +47,10 @@ def loglikelyhood(m, ind):
     # log (normal density for the residue)
     if ind == 'Gaus':
         l = - 0.5 * np.sum(residuals ** 2) #GAUSSIAN
-    else:
+    elif ind == 'Expo':
         l = -1*np.sum(np.abs(residuals)) #EXP
+    else:
+        print('Distribution not implemented')
+        return 
 
     return l
