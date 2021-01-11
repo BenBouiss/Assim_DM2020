@@ -47,7 +47,7 @@ def loglikelyhood(m, ind):
     # log (normal density for the residue)
     if ind == 'Gaus':
         l = - 0.5 * np.sum(residuals ** 2) #GAUSSIAN
-    elif ind == 'Expo':
+    elif ind == 'Exp':
         l = -1*np.sum(np.abs(residuals)) #EXP
     else:
         print('Distribution not implemented')
